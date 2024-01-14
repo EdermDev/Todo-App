@@ -24,3 +24,11 @@ export function getNextId(todos: TodoList): number {
 
   return idMasBajo;
 }
+
+export function getNowTime() {
+  return (
+    new Date().toLocaleDateString() +
+    " " +
+    new Date().toLocaleTimeString().slice(0, 5)
+  );
+}

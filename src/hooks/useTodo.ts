@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { getLocalStorage, getNextId, setLocalStorage } from "../services/todos";
+import {
+  getLocalStorage,
+  getNextId,
+  getNowTime,
+  setLocalStorage,
+} from "../services/todos";
 import {
   type TodoText,
   type Todo,
@@ -9,7 +14,6 @@ import {
   TODO_FILTERS,
   type FilterProps,
 } from "../types.d";
-
 function useTodo() {
   const restoredData = () => {
     return getLocalStorage("todo") ?? [];
@@ -20,22 +24,13 @@ function useTodo() {
   const isNewTodo = useRef(false);
 
   const addTodo = ({ text }: TodoText) => {
-    const formattedDate =
-      new Date().toLocaleDateString() +
-      " " +
-      new Date().toLocaleTimeString().slice(0, 5);
-
     const newTodo = {
       id: getNextId(originalTodos),
       text: text,
       isCompleted: false,
-      date: formattedDate,
+      date: getNowTime(),
     };
-    console.log(newTodo.date);
-
     setOriginalTodos((prevTodos) => [...prevTodos, newTodo]);
-
-    // Only add to filteredTodos if the current filter is "All"
 
     setFilteredTodos([...filteredTodos, newTodo]);
     isNewTodo.current = !isNewTodo.current;
@@ -51,6 +46,17 @@ function useTodo() {
       (todo: Todo) => todo.id !== id
     );
     setFilteredTodos(deletedFilteredTodos);
+  };
+
+  const editTodo = ({ text, id }: { text: string; id: number }) => {
+    const editedOriginalTodos = originalTodos.map((todo: Todo) =>
+      id === todo.id ? { ...todo, text: text, date: getNowTime() } : todo
+    );
+    setOriginalTodos(editedOriginalTodos);
+    const editedFilteredTodos = filteredTodos.map((todo: Todo) =>
+      id === todo.id ? { ...todo, text: text } : todo
+    );
+    setFilteredTodos(editedFilteredTodos);
   };
 
   const toggleTodoCompleted = ({ id, isCompleted }: TodoCompleted) => {
@@ -98,6 +104,7 @@ function useTodo() {
     toggleTodoCompleted,
     filterCompletedTodos,
     activeTab,
+    editTodo,
   };
 }
 

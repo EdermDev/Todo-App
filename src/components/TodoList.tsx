@@ -1,16 +1,46 @@
-import { type TodoId, type Todo, type TodoList, TodoCompleted } from "../types";
+import { useState } from "react";
+import {
+  type TodoId,
+  type Todo,
+  type TodoList,
+  type TodoCompleted,
+} from "../types";
+import EditModal from "./EditModal";
 import Settings from "./icons/Settings";
 import { Dropdown } from "keep-react";
+import Edit from "./icons/Edit";
+import Delete from "./icons/Delete";
+import { toast } from "sonner";
 
 type TodoListProps = {
   todos: TodoList;
   deleteTodo: ({ id }: TodoId) => void;
   toggleCompleted: ({ id, isCompleted }: TodoCompleted) => void;
+  editTodo: ({ text, id }: { text: string; id: number }) => void;
 };
+const INIT_TODO = {
+  id: 1,
+  text: "",
+  isCompleted: false,
+  date: "",
+};
+function TodoList({
+  todos,
+  deleteTodo,
+  toggleCompleted,
+  editTodo,
+}: TodoListProps) {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedTodo, setSelectedTodo] = useState<Todo>(INIT_TODO);
 
-function TodoList({ todos, deleteTodo, toggleCompleted }: TodoListProps) {
   const handleDelete = ({ id }: TodoId) => {
     deleteTodo({ id });
+    toast.success("La tarea se ha eliminado");
+  };
+
+  const handleEdit = (todo: Todo) => {
+    setSelectedTodo(todo);
+    setShowModal(true);
   };
 
   const handleChangeCheck = (
@@ -51,7 +81,7 @@ function TodoList({ todos, deleteTodo, toggleCompleted }: TodoListProps) {
                 </div>
               </label>
 
-              <div className="flex items-center gap-x-4 ">
+              <div className="flex items-center gap-x-4 w-80">
                 <time className="text-xs text-gray-600">{todo.date}</time>
                 <div
                   role="status"
@@ -68,34 +98,26 @@ function TodoList({ todos, deleteTodo, toggleCompleted }: TodoListProps) {
                       <Settings width={20} height={20} />
                     </button>
                   }
-                  size="sm"
+                  size="xs"
                   type="linkGray"
                   arrowIcon={false}
                   dismissOnClick={true}
                 >
-                  <Dropdown.Item>Editar</Dropdown.Item>
+                  <Dropdown.Item onClick={() => handleEdit(todo)}>
+                    <Edit width={12} height={12} />
+                    <span className="ms-2">Editar</span>
+                  </Dropdown.Item>
                   <Dropdown.Item onClick={() => handleDelete({ id: todo.id })}>
-                    Eliminar
+                    <Delete width={12} height={12} />
+                    <span className="ms-2">Eliminar</span>
                   </Dropdown.Item>
                 </Dropdown>
-                {/* <details className="dropdown">
-                  <summary className="m-1 btn">open or close</summary>
-                  <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                    <li>
-                      <a>Item 1</a>
-                    </li>
-                    <li>
-                      <a>Item 2</a>
-                    </li>
-                  </ul>
-                </details> */}
-
-                {/*   <button
-                  onClick={() => handleDelete({ id: todo.id })}
-                  className="text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
-                >
-                  Borrar
-                </button> */}
+                <EditModal
+                  showModal={showModal}
+                  setShowModal={setShowModal}
+                  todo={selectedTodo}
+                  editTodo={editTodo}
+                />
               </div>
             </li>
           ))}

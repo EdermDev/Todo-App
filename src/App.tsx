@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Menu from "./components/Menu";
 import TodoList from "./components/TodoList";
 import useTodo from "./hooks/useTodo";
+import { Toaster } from "sonner";
 
 function App() {
   const {
@@ -13,6 +14,7 @@ function App() {
     toggleTodoCompleted,
     filterCompletedTodos,
     activeTab,
+    editTodo,
   } = useTodo();
 
   return (
@@ -29,7 +31,9 @@ function App() {
             todos={todos}
             deleteTodo={deleteTodo}
             toggleCompleted={toggleTodoCompleted}
+            editTodo={editTodo}
           />
+          <Toaster position="bottom-right" />
         </main>
         <Footer />
       </div>
