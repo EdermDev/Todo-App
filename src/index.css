@@ -1,0 +1,11 @@
+@import "keep-react/css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  overflow-x: hidden;
+}
+ul::-webkit-scrollbar {
+  display: none;
+}
