@@ -39,6 +39,7 @@ function EditModal({ showModal, setShowModal, todo, editTodo }: Props) {
     <>
       <Modal
         size="md"
+        style={{ background: "black !important" }}
         show={showModal}
         position="center"
         onClose={handleCloseModal}

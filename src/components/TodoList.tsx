@@ -112,12 +112,6 @@ function TodoList({
                     <span className="ms-2">Eliminar</span>
                   </Dropdown.Item>
                 </Dropdown>
-                <EditModal
-                  showModal={showModal}
-                  setShowModal={setShowModal}
-                  todo={selectedTodo}
-                  editTodo={editTodo}
-                />
               </div>
             </li>
           ))}
@@ -130,6 +124,12 @@ function TodoList({
           <p className="animate-bounce ms-1"> ☝</p>
         </div>
       )}
+      <EditModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        todo={selectedTodo}
+        editTodo={editTodo}
+      />
     </>
   );
 }
