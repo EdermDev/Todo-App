@@ -15,6 +15,7 @@ function App() {
     filterCompletedTodos,
     activeTab,
     editTodo,
+    sortTodos,
   } = useTodo();
 
   return (
@@ -26,12 +27,14 @@ function App() {
           <Menu
             onFilterChange={filterCompletedTodos}
             activeTab={activeTab.current}
+            sortTodos={sortTodos}
           />
           <TodoList
             todos={todos}
             deleteTodo={deleteTodo}
             toggleCompleted={toggleTodoCompleted}
             editTodo={editTodo}
+            activeTab={activeTab.current}
           />
           <Toaster position="bottom-right" />
         </main>

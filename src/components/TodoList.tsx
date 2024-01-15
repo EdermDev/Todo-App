@@ -4,6 +4,7 @@ import {
   type Todo,
   type TodoList,
   type TodoCompleted,
+  type FilterProps,
 } from "../types";
 import EditModal from "./EditModal";
 import Settings from "./icons/Settings";
@@ -17,6 +18,7 @@ type TodoListProps = {
   deleteTodo: ({ id }: TodoId) => void;
   toggleCompleted: ({ id, isCompleted }: TodoCompleted) => void;
   editTodo: ({ text, id }: { text: string; id: number }) => void;
+  activeTab: FilterProps;
 };
 const INIT_TODO = {
   id: 1,
@@ -29,6 +31,7 @@ function TodoList({
   deleteTodo,
   toggleCompleted,
   editTodo,
+  activeTab,
 }: TodoListProps) {
   const [showModal, setShowModal] = useState(false);
   const [selectedTodo, setSelectedTodo] = useState<Todo>(INIT_TODO);
@@ -54,10 +57,11 @@ function TodoList({
   };
 
   const hasTodos = todos?.length > 0;
+  console.log(activeTab);
 
   return (
     <>
-      {hasTodos ? (
+      {hasTodos && (
         <ul className="max-h-[30rem] overflow-y-auto ">
           {todos.map((todo: Todo) => (
             <li
@@ -81,7 +85,7 @@ function TodoList({
                 </div>
               </label>
 
-              <div className="flex items-center gap-x-4 w-80">
+              <div className="flex items-center sm:justify-normal justify-between gap-x-4 w-80">
                 <time className="text-xs text-gray-600">{todo.date}</time>
                 <div
                   role="status"
@@ -93,11 +97,7 @@ function TodoList({
                 </div>
 
                 <Dropdown
-                  label={
-                    <button>
-                      <Settings width={20} height={20} />
-                    </button>
-                  }
+                  label={<Settings width={20} height={20} />}
                   size="xs"
                   type="linkGray"
                   arrowIcon={false}
@@ -116,12 +116,27 @@ function TodoList({
             </li>
           ))}
         </ul>
-      ) : (
+      )}
+      {activeTab === "all" && !hasTodos && (
         <div className="flex items-center justify-center mt-12">
           <p className="text-center text-pretty">
             No tienes tareas. Empieza a crear una
           </p>
           <p className="animate-bounce ms-1"> ☝</p>
+        </div>
+      )}
+      {activeTab === "active" && !hasTodos && (
+        <div className="flex items-center justify-center mt-12">
+          <p className="text-center text-pretty">
+            No tienes ninguna tarea pendiente.
+          </p>
+        </div>
+      )}
+      {activeTab === "completed" && !hasTodos && (
+        <div className="flex items-center justify-center mt-12">
+          <p className="text-center text-pretty">
+            No tienes ninguna tarea completada.
+          </p>
         </div>
       )}
       <EditModal
@@ -135,3 +150,12 @@ function TodoList({
 }
 
 export default TodoList;
+
+/* : (
+  <div className="flex items-center justify-center mt-12">
+    <p className="text-center text-pretty">
+      No tienes tareas. Empieza a crear una
+    </p>
+    <p className="animate-bounce ms-1"> ☝</p>
+  </div>
+) */

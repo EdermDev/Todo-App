@@ -89,6 +89,27 @@ function useTodo() {
     }
   };
 
+  const sortTodos = (sortBy: string) => {
+    if (sortBy === "alfabetic") {
+      const sortedTodos = [...filteredTodos].sort((a: Todo, b: Todo) =>
+        a.text.localeCompare(b.text)
+      );
+      setFilteredTodos(sortedTodos);
+    }
+    if (sortBy === "recent") {
+      const sortedTodos = [...filteredTodos].sort((a: Todo, b: Todo) =>
+        b.date.localeCompare(a.date)
+      );
+      setFilteredTodos(sortedTodos);
+    }
+    if (sortBy === "older") {
+      const sortedTodos = [...filteredTodos].sort((a: Todo, b: Todo) =>
+        a.date.localeCompare(b.date)
+      );
+      setFilteredTodos(sortedTodos);
+    }
+  };
+
   useEffect(() => {
     setLocalStorage("todo", originalTodos);
   }, [originalTodos]);
@@ -105,6 +126,7 @@ function useTodo() {
     filterCompletedTodos,
     activeTab,
     editTodo,
+    sortTodos,
   };
 }
 
