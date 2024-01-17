@@ -62,10 +62,10 @@ function EditModal({ showModal, setShowModal, todo, editTodo }: Props) {
         </Modal.Body>
         <Modal.Footer>
           <Button size={"xs"} type="outlineGray" onClick={handleCloseModal}>
-            Cancel
+            Cancelar
           </Button>
           <Button size={"xs"} type="primary" onClick={handleEdit}>
-            Confirm
+            Confirmar
           </Button>
         </Modal.Footer>
       </Modal>

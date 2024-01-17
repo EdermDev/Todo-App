@@ -22,7 +22,7 @@ function Form({ addTodo }: FormProps) {
       <input
         type="text"
         name="todoInput"
-        className="block border border-gray-300 text-gray-900 rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent w-full "
+        className="block border border-gray-300 text-gray-900 rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent w-full focus:shadow-sm"
         placeholder="Agrega una tarea..."
       />
 

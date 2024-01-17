@@ -1,10 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  getLocalStorage,
-  getNextId,
-  getNowTime,
-  setLocalStorage,
-} from "../services/todos";
+import { getLocalStorage, setLocalStorage } from "../services/todos";
 import {
   type TodoText,
   type Todo,
@@ -14,6 +9,8 @@ import {
   TODO_FILTERS,
   type FilterProps,
 } from "../types.d";
+import { getNowTime } from "../utils/utils";
+import { getNextId } from "../helpers/helpers";
 function useTodo() {
   const restoredData = () => {
     return getLocalStorage("todo") ?? [];
@@ -30,9 +27,9 @@ function useTodo() {
       isCompleted: false,
       date: getNowTime(),
     };
-    setOriginalTodos((prevTodos) => [...prevTodos, newTodo]);
+    setOriginalTodos((prevTodos) => [newTodo, ...prevTodos]);
 
-    setFilteredTodos([...filteredTodos, newTodo]);
+    setFilteredTodos([newTodo, ...filteredTodos]);
     isNewTodo.current = !isNewTodo.current;
   };
 
@@ -48,28 +45,53 @@ function useTodo() {
     setFilteredTodos(deletedFilteredTodos);
   };
 
+  const deleteAllTodos = () => {
+    setOriginalTodos([]);
+    setFilteredTodos([]);
+  };
+
   const editTodo = ({ text, id }: { text: string; id: number }) => {
     const editedOriginalTodos = originalTodos.map((todo: Todo) =>
-      id === todo.id ? { ...todo, text: text, date: getNowTime() } : todo
+      id === todo.id ? { ...todo, text, date: getNowTime() } : todo
     );
-    setOriginalTodos(editedOriginalTodos);
+    const recentOriginalTodos = editedOriginalTodos.sort((a: Todo, b: Todo) =>
+      b.date.localeCompare(a.date)
+    );
+    setOriginalTodos(recentOriginalTodos);
+
     const editedFilteredTodos = filteredTodos.map((todo: Todo) =>
-      id === todo.id ? { ...todo, text: text } : todo
+      id === todo.id ? { ...todo, text, date: getNowTime() } : todo
     );
-    setFilteredTodos(editedFilteredTodos);
+    const recentFilteredTodos = editedFilteredTodos.sort((a: Todo, b: Todo) =>
+      b.date.localeCompare(a.date)
+    );
+    setFilteredTodos(recentFilteredTodos);
   };
 
   const toggleTodoCompleted = ({ id, isCompleted }: TodoCompleted) => {
     const completedTodos = originalTodos.map((todo: Todo) =>
       todo.id === id ? { ...todo, isCompleted } : todo
     );
-
     setOriginalTodos(completedTodos);
 
-    // Update filteredTodos based on the current filter
     const completedFilteredTodos = filteredTodos?.map((todo: Todo) =>
       todo.id === id ? { ...todo, isCompleted } : todo
     );
+    setFilteredTodos(completedFilteredTodos);
+  };
+
+  const toggleTodoAllCompleted = (isCompleted: boolean) => {
+    const completedTodos = originalTodos.map((todo: Todo) => ({
+      ...todo,
+      isCompleted,
+    }));
+
+    setOriginalTodos(completedTodos);
+
+    const completedFilteredTodos = filteredTodos?.map((todo: Todo) => ({
+      ...todo,
+      isCompleted,
+    }));
 
     setFilteredTodos(completedFilteredTodos);
   };
@@ -110,10 +132,12 @@ function useTodo() {
     }
   };
 
+  //Cuando hay un cambio en los TODOS se guarda en el local storage
   useEffect(() => {
     setLocalStorage("todo", originalTodos);
   }, [originalTodos]);
 
+  //Cuando creas un nuevo TODO va a la pestaña de all
   useEffect(() => {
     filterCompletedTodos(TODO_FILTERS.ALL);
   }, [isNewTodo.current]);
@@ -127,6 +151,8 @@ function useTodo() {
     activeTab,
     editTodo,
     sortTodos,
+    deleteAllTodos,
+    toggleTodoAllCompleted,
   };
 }
 

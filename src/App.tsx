@@ -16,6 +16,8 @@ function App() {
     activeTab,
     editTodo,
     sortTodos,
+    deleteAllTodos,
+    toggleTodoAllCompleted,
   } = useTodo();
 
   return (
@@ -32,7 +34,9 @@ function App() {
           <TodoList
             todos={todos}
             deleteTodo={deleteTodo}
+            deleteAllTodos={deleteAllTodos}
             toggleCompleted={toggleTodoCompleted}
+            toggleAllCompleted={toggleTodoAllCompleted}
             editTodo={editTodo}
             activeTab={activeTab.current}
           />

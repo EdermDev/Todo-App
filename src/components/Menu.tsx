@@ -2,7 +2,7 @@ import { type FilterProps, TODO_FILTERS } from "../types.d";
 import AllTodos from "./icons/AllTodos";
 import Completed from "./icons/Completed";
 import Active from "./icons/Active";
-import React from "react";
+import React, { useState } from "react";
 
 interface Props {
   onFilterChange: (filter: FilterProps) => void;
@@ -10,8 +10,11 @@ interface Props {
   sortTodos: (sortBy: string) => void;
 }
 function Menu({ onFilterChange, activeTab, sortTodos }: Props) {
+  const [selectedOption, setSelectedOption] = useState("recent");
+
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     sortTodos(e.target.value);
+    setSelectedOption(e.target.value);
   };
 
   return (
@@ -27,6 +30,7 @@ function Menu({ onFilterChange, activeTab, sortTodos }: Props) {
               } `}
               onClick={() => {
                 onFilterChange(TODO_FILTERS.ALL);
+                setSelectedOption("recent");
               }}
             >
               <AllTodos width={20} height={20} activeTab={activeTab} />
@@ -42,6 +46,7 @@ function Menu({ onFilterChange, activeTab, sortTodos }: Props) {
               } `}
               onClick={() => {
                 onFilterChange(TODO_FILTERS.ACTIVE);
+                setSelectedOption("recent");
               }}
             >
               <Active width={20} height={20} activeTab={activeTab} />
@@ -57,6 +62,7 @@ function Menu({ onFilterChange, activeTab, sortTodos }: Props) {
               } `}
               onClick={() => {
                 onFilterChange(TODO_FILTERS.COMPLETED);
+                setSelectedOption("recent");
               }}
             >
               <Completed width={20} height={20} activeTab={activeTab} />
@@ -64,10 +70,11 @@ function Menu({ onFilterChange, activeTab, sortTodos }: Props) {
             </button>
           </li>
         </ul>
-        <label className="  text-sm font-medium text-gray-900 dark:text-white flex items-center sm:mb-2 sm:mt-0 my-6 ">
+        <label className="text-sm font-medium text-gray-900 flex items-center sm:mb-2 sm:mt-0 my-6 ">
           Ordenar por:
           <select
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 p-1 ms-2 "
+            className="bg-gray-50 hover:bg-gray-100 transition duration-75 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 p-1 ms-2 "
+            value={selectedOption}
             onChange={handleSelect}
           >
             <option value="recent">Recientes</option>

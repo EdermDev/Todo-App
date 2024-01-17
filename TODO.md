@@ -8,7 +8,10 @@
 - [x] Sustituir el boton de borrar por un icono de opciones el cual abra un dropdown con diferentes opciones. Borrar y editar de momento.
 - [x] Al darle a editar se puede abrir un modal con el texto para editar.
 - [x] Hacer la parte de editar el todo.
-- [Working] Hacer los las agrupaciones por ordenes.
-- [] Poner debajo de la lista de las tareas 1 boton para completar/descompletar todas las tareas y un boton para eliminar todas las tareas.
+- [x] Hacer los las agrupaciones por ordenes.
+- [x] Poner debajo de la lista de las tareas 1 boton para completar/descompletar todas las tareas y un boton para eliminar todas las tareas.
+- [x] Solucionar que cuando edito una tarea no sube arriba en el renderizado.
+- [x] Solucionar que cada vez que cambie de tab en el menu el select se ponga en reciente.
+- [] Poner un modal de confirmacion al borrar todas las tareas. Y mejorar el estilo del boton de borrar todas.  
 - [] Hacer deploy del proyecto.
 - [] Probar a subir a github.

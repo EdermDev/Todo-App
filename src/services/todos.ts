@@ -13,22 +13,3 @@ export const getLocalStorage = (key: string) => {
     }
   }
 };
-
-export function getNextId(todos: TodoList): number {
-  const idsExistente = todos.map((todo) => todo.id);
-
-  let idMasBajo = 1;
-  while (idsExistente.includes(idMasBajo)) {
-    idMasBajo++;
-  }
-
-  return idMasBajo;
-}
-
-export function getNowTime() {
-  return (
-    new Date().toLocaleDateString() +
-    " " +
-    new Date().toLocaleTimeString().slice(0, 5)
-  );
-}
