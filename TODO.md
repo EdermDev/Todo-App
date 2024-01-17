@@ -12,6 +12,7 @@
 - [x] Poner debajo de la lista de las tareas 1 boton para completar/descompletar todas las tareas y un boton para eliminar todas las tareas.
 - [x] Solucionar que cuando edito una tarea no sube arriba en el renderizado.
 - [x] Solucionar que cada vez que cambie de tab en el menu el select se ponga en reciente.
-- [] Poner un modal de confirmacion al borrar todas las tareas. Y mejorar el estilo del boton de borrar todas.  
+- [x] Poner un modal de confirmacion al borrar todas las tareas. Y mejorar el estilo del boton de borrar todas.  
 - [] Hacer deploy del proyecto.
 - [] Probar a subir a github.
+- [] Refactorizar todo lo que pueda y volver a subir el proyecto en git y netli.

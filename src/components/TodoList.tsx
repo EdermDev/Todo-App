@@ -8,7 +8,7 @@ import {
 } from "../types";
 import EditModal from "./EditModal";
 import Settings from "./icons/Settings";
-import { Dropdown } from "keep-react";
+import { Button, Dropdown } from "keep-react";
 import Edit from "./icons/Edit";
 import Delete from "./icons/Delete";
 import { toast } from "sonner";
@@ -136,7 +136,7 @@ function TodoList({
               </li>
             ))}
           </ul>
-          <div className="flex justify-between mt-8 px-0.5">
+          <div className="flex justify-between items-center mt-6 px-0.5">
             <div className="">
               <label className="w-full">
                 <div className="flex items-center gap-x-4 ">
@@ -155,15 +155,17 @@ function TodoList({
                 </div>
               </label>
             </div>
-            <button
-              className="flex items-center me-5"
+
+            <Button
+              size="xs"
+              type="linkGray"
               onClick={() => {
-                setShowDeleteModal(true)
+                setShowDeleteModal(true);
               }}
             >
               <span className="me-2">Borrar todas</span>
-              <Delete width={20} height={20} />
-            </button>
+              <Delete width={15} height={15} />
+            </Button>
           </div>
         </>
       )}

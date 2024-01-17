@@ -19,6 +19,10 @@ function EditModal({ showModal, setShowModal, todo, editTodo }: Props) {
 
   const handleEdit = () => {
     if (inputValue === "") return;
+    if (inputValue === todo.text) {
+      setShowModal(!showModal);
+      return;
+    }
     editTodo({
       text: inputValue,
       id: todo.id,
