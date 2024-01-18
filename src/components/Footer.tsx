@@ -13,23 +13,54 @@ function Footer() {
               <span>
                 <ReactIcon width={20} height={20} />
               </span>
-              React
+              <a
+                href="https://react.dev/"
+                target="_blank"
+                rel="noopener"
+                className="underline underline-offset-2 text-blue-950"
+              >
+                React
+              </a>
             </li>
             <li className="flex items-center gap-x-2">
               <span>
                 <TypeScriptIcon width={20} height={17} />
               </span>
-              TypeScript
+              <a
+                href="https://www.typescriptlang.org/"
+                target="_blank"
+                rel="noopener"
+                className="underline underline-offset-2 text-blue-950"
+              >
+                TypeScript
+              </a>
             </li>
             <li className="flex items-center gap-x-2">
               <span>
                 <TailwindCSS width={20} height={20} />
               </span>
-              TailwindCSS
+              <a
+                href="https://tailwindcss.com/"
+                target="_blank"
+                rel="noopener"
+                className="underline underline-offset-2 text-blue-950"
+              >
+                TailwindCSS
+              </a>
             </li>
           </ul>
         </aside>
-        <p className="sm:w-1/2">Hecho con ❤ por Eder Martínez</p>
+        <p className="sm:w-1/2">
+          Hecho con ❤ por {""}
+          <a
+            href="https://github.com/EdermDev"
+            target="_blank"
+            rel="noopener"
+            className="underline underline-offset-2 text-blue-600"
+          >
+            Eder Martínez
+          </a>
+        </p>
       </div>
     </footer>
   );

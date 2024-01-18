@@ -53,7 +53,6 @@ function TodoList({
 
   const handleEdit = (todo: Todo) => {
     setSelectedTodo(todo);
-
     setShowEditModal(true);
   };
 
@@ -65,6 +64,7 @@ function TodoList({
       id,
       isCompleted: event.target.checked,
     });
+    setSelectAllChecked(false);
   };
 
   const handleSelectAllChange = (
