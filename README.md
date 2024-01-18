@@ -1,5 +1,6 @@
-<h1 style="text-align:center; margin-bottom:4rem">Todo Simple App</h1>
+<h1 style="text-align:center">📝 Todo Simple App</h1>
 
+![Todo App Demo](/src/assets/images/demo.png)
 
 ## 📒 Sobre la aplicación
 
@@ -13,7 +14,7 @@
 
 ## 🌐 Abrir aplicación en la web
 
-Click a este enlace para acceder: [Todo App 👈](https://github.com/jsx-eslint/eslint-plugin-react)
+Click a este enlace para acceder: [Todo App 👈](https://eder-tareas.netlify.app/)
 
 <sup>Sitio web alojado en [Netlify](https://www.netlify.com/)</sup>
 
