@@ -6,6 +6,8 @@
 
 > Pagina para **crear**, **editar** y **eliminar** tareas. Con **filtrado** por pendientes y completadas. Y con **orden** por recientes, antiguas y alfabético. Hecho por un desarrollador junior.
 
+Proyecto hecho principalmente para aprender.
+
 ### 🔧 Tecnologías usadas
 
 - [React](https://react.dev/)
